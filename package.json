@@ -1,0 +1,22 @@
+{
+  "name": "node-mcu",
+  "version": "1.0.0",
+  "description": "NodeMCU development Project",
+  "author": "Stijn Bernards",
+  "license": "MIT",
+  "dependencies": {
+    "@prettier/plugin-lua": "^0.0.1",
+    "gulp": "^4.0.2",
+    "gulp-luacheck": "^1.0.4",
+    "gulp-prettier": "^2.3.0",
+    "nodemcu-tool": "^3.2.0",
+    "prettier": "^1.19.1"
+  },
+  "scripts": {
+    "format": "gulp format",
+    "lint:luacheck": "gulp luacheck",
+    "lint:prettier": "gulp validate",
+    "lint": "yarn run lint:luacheck && yarn run lint:prettier",
+    "test": "make test"
+  }
+}

@@ -1,0 +1,6 @@
+node_modules/
+# Lua compiled files
+*.lc
+*.out
+# Lua LFS files
+*.img

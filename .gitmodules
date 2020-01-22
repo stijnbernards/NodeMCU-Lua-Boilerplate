@@ -1,0 +1,3 @@
+[submodule "docker-bin/nodemcu/nodemcu-firmware"]
+	path = docker-bin/nodemcu/nodemcu-firmware
+	url = https://github.com/nodemcu/nodemcu-firmware.git

@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  nodemcu:
+    image: marcelstoer/nodemcu-build
+    container_name: nodemcu
+    volumes:
+      - ./nodemcu/nodemcu-firmware:/opt/nodemcu-firmware:rw
+      - ./nodemcu/nodemcu-firmware/app/include/user_config.h:/opt/nodemcu-firmware/app/include/user_config.h:ro
+      - ./nodemcu/nodemcu-firmware/app/include/user_modules.h:/opt/nodemcu-firmware/app/include/user_modules.h:ro
+      - ../src:/app/src:rw

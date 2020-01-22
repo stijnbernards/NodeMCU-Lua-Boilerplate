@@ -1,0 +1,8 @@
+{
+    "baudrate": "9600",
+    "port": "/dev/tty.wchusbserial14430",
+    "minify": true,
+    "compile": true,
+    "keeppath": false,
+    "connectionDelay": 100
+}
