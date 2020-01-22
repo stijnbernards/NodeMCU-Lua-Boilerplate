@@ -16,7 +16,7 @@ local function handleRequest(request, response)
 	end
 end
 
-local function updateConfig(request, response)
+local function updateConfig(request, _)
 	local config = ""
 
 	request.ondata = function(self, chunk)
@@ -38,10 +38,10 @@ local function updateConfig(request, response)
 	end
 end
 
-local function uploadLFSImage(request, response)
+local function uploadLFSImage(request, _)
 	file.open("flash.img", "w+")
 
-	request.ondata = function(self, chunk)
+	request.ondata = function(_, chunk)
 		file.write(chunk)
 
 		if not chunk then

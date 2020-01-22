@@ -1,6 +1,6 @@
 allow_defined=true
 std = {
-    globals = {"app", "config", "setup"}, -- Base NodeMCU application globals
+    globals = {"app", "config", "setup", "package"}, -- Base NodeMCU application globals
     read_globals = {
         -- C NodeMCU Wifi Module: https://nodemcu.readthedocs.io/en/master/modules/wifi/
         "wifi",
@@ -12,7 +12,23 @@ std = {
         "tmr",
         -- C DHT Module: https://nodemcu.readthedocs.io/en/master/modules/dht/
         "dht",
+        "rtctime",
+        "getfenv",
+        "loadfile",
+        "net",
+        "file",
+        "json",
+        "pcall",
+        "collectgarbage",
+        "tonumber",
+        "tostring",
+        "type",
         "print",
-        "require"
+        "table",
+        "require",
+        -- Overlay for file requiring
+        "OVL",
+        "error",
+        "setmetatable"
     }
 }

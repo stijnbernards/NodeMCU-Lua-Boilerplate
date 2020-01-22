@@ -1,9 +1,13 @@
 local config = {}
 
+-- Reads the config.json file and returns a parsed config object
+-- If the config file doesn't contain a valid JSON it'll return false
 function config.read()
+	local parsedJson
+
 	if file.open("config.json", "r") then
 		local status
-		status, config = pcall(json.decode, file.read())
+		status, parsedJson = pcall(json.decode, file.read())
 
 		if not status then
 			return false
@@ -12,25 +16,19 @@ function config.read()
 		file.close()
 	end
 
-	if type(config) ~= "table" then
-		config = {}
+	if type(parsedJson) ~= "table" then
+		parsedJson = {}
 	end
 
-	config.id = node.chipid()
+	parsedJson.id = node.chipid()
 
-	return config
+	return parsedJson
 end
 
-function config.write(config)
-	local status
-	status, config = pcall(json.decode, config)
-
-	if not status then
-		return false
-	end
-
+-- Writes the given string to the config.json file
+function config.write(configString)
 	if file.open("config.json", "w+") then
-		file.write(config)
+		file.write(configString)
 		file.close()
 	end
 

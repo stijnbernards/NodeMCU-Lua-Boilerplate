@@ -1,7 +1,7 @@
 # Lua NodeMCU Project Boilerplate
 
 This is a reference project for NodeMCU Lua development. 
-It aims to help starting developers with NodeMCU development and Lua code style.
+It aims to help developers with NodeMCU module development setup.
 This repository contains a few helper scripts and tools which I like to use during development for my ESP-32 modules.
 The tools are not yet fully defined and I'm still working on a better local development environment for NodeMCU.
 So all PR's are welcome.
@@ -55,6 +55,10 @@ Uploading code can be done by using the following command:
 Executing code is done in a similar manner:
 
 `nodemcu-uploader --port <serial-port> file do <filename>.lua`
+
+### Building a Lua LFS image
+
+Todo 
 
 ## NodeMCU Lua Development
 

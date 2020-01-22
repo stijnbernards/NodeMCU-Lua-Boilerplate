@@ -29,7 +29,7 @@ function setup.startAP()
 
 	local config = {
 		ssid = node.chipid(),
-		ssid = wifi.OPEN
+		auth = wifi.OPEN
 	}
 	wifi.setmode(wifi.SOFTAP)
 	wifi.ap.config(config)

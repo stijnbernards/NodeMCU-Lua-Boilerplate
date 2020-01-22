@@ -48,7 +48,7 @@ do
 				csend("\r\n")
 			end
 		end
-		local send_header = function(self, name, value)
+		local send_header = function(_, name, value)
 			-- NB: quite a naive implementation
 			csend(name)
 			csend(": ")
@@ -97,7 +97,7 @@ do
 			end
 			-- header parser
 			local cnt_len = 0
-			local onheader = function(conn, k, v)
+			local onheader = function(_, k, v)
 				-- TODO: look for Content-Type: header
 				-- to help parse body
 				-- parse content length to know body length
@@ -114,7 +114,7 @@ do
 			end
 			-- body data handler
 			local body_len = 0
-			local ondata = function(conn, chunk)
+			local ondata = function(_, chunk)
 				-- feed request data to request handler
 				if not req or not req.ondata then return end
 				req:ondata(chunk)
@@ -144,7 +144,7 @@ do
 					buf = buf:sub(e + 2)
 					-- method, url?
 					if not method then
-						local i
+						local i, _
 						-- NB: just version 1.1 assumed
 						_, i, method, url =
 							line:find("^([A-Z]+) (.-) HTTP/1.1$")
