@@ -202,7 +202,6 @@
 //#define DEVELOPMENT_BREAK_ON_STARTUP_PIN 1
 //#define DEVELOP_VERSION
 
-
 // *** Heareafter, there be demons ***
 
 // The remaining options are advanced configuration options and you should only

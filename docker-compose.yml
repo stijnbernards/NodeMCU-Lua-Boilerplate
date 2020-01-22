@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  nodemcu:
+    build:
+      dockerfile: docker-bin/nodemcu/Dockerfile
+      context: .
+    container_name: nodemcu
+    volumes:
+      - ./src:/app/src:rw
+      - ./docker-bin/nodemcu/app/include/user_config.h:/opt/nodemcu-firmware/app/include/user_config.h
+      - ./docker-bin/nodemcu/app/include/user_modules.h:/opt/nodemcu-firmware/app/include/user_modules.h

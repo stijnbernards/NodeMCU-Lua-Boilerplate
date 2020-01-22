@@ -17,6 +17,12 @@
     "lint:luacheck": "gulp luacheck",
     "lint:prettier": "gulp validate",
     "lint": "yarn run lint:luacheck && yarn run lint:prettier",
-    "test": "make test"
+    "test": "make test",
+    "devices": "nodemcu-tool devices",
+    "upload": "cd ./src && nodemcu-uploader --port $0 *.lua $@",
+    "terminal": "nodemcu-uploader --port $0 terminal",
+    "exec": "nodemcu-uploader --port $0 file do init.lua",
+    "build-firmware": "docker-compose run nodemcu build",
+    "flash": "esptool.py --port $1 write_flash -fm dio 0x00000 $1"
   }
 }
