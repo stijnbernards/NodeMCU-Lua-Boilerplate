@@ -79,6 +79,7 @@ The following commands have been defined in the `Gulpfile.js and package.json` t
 ## Roadmap
 
 - Switch to 1 global tool for commands such as format, validate and etc
+- Github CI/CD
 - Better unit test integration
 - Unit tests to run directly on the NodeMCU modules
 - Fully working OTA setup
