@@ -29,7 +29,6 @@ local ovl_t = {
 
 		return nil
 	end,
-
 	__newindex = function(_, name)
 		error("Overlay is a synthetic view! " .. name, 2)
 	end

@@ -3,6 +3,52 @@ local OTA = {}
 local httpserver = OVL["httpserver"]()
 local config = OVL["config"]()
 
+local function updateLFSImage(request, response)
+	file.open("flash.img", "w+")
+
+	request.ondata = function(_, chunk)
+		file.write(chunk)
+
+		if not chunk then
+			response:send(nil, 200)
+			response:send_header("Connection", "close")
+			response:send("OK")
+			response:finish()
+
+			file.close()
+			wifi.setmode(wifi.NULLMODE, false)
+			collectgarbage()
+			collectgarbage()
+
+			node.task.post(function()
+				node.flashreload("flash.img")
+			end)
+		end
+	end
+end
+
+local function updateConfig(request, response)
+	local newConfig = ""
+
+	request.ondata = function(_, chunk)
+		newConfig = newConfig .. chunk
+
+		if not chunk then
+			if config.write(newConfig) then
+				response:send(nil, 200)
+				response:send_header("Connection", "close")
+				response:send("OK")
+				response:finish()
+			else
+				response:send(nil, 400)
+				response:send_header("Connection", "close")
+				response:send("JSON Decode error: " .. newConfig)
+				response:finish()
+			end
+		end
+	end
+end
+
 local function handleRequest(request, response)
 	print(request.method)
 	print(request.url)
@@ -13,52 +59,6 @@ local function handleRequest(request, response)
 
 	if request.method == "POST" and request.url == "/upload-lfs" then
 		updateLFSImage(request, response)
-	end
-end
-
-local function updateConfig(request, _)
-	local config = ""
-
-	request.ondata = function(self, chunk)
-		config = config .. chunk
-
-		if not chunk then
-			if config.write(config) then
-				res:send(nil, 200)
-				res:send_header("Connection", "close")
-				res:send("OK")
-				res:finish()
-			else
-				res:send(nil, 400)
-				res:send_header("Connection", "close")
-				res:send("JSON Decode error: " .. config)
-				res:finish()
-			end
-		end
-	end
-end
-
-local function uploadLFSImage(request, _)
-	file.open("flash.img", "w+")
-
-	request.ondata = function(_, chunk)
-		file.write(chunk)
-
-		if not chunk then
-			res:send(nil, 200)
-			res:send_header("Connection", "close")
-			res:send("OK")
-			res:finish()
-
-			file.close()
-			wifi.setmode(wifi.NULLMODE, false)
-			collectgarbage()
-			collectgarbage()
-
-			node.task.post(function()
-				node.flashreload(image)
-			end)
-		end
 	end
 end
 

@@ -91,8 +91,8 @@ do
 			local req, res
 			local buf = ""
 			local method, url
-			local ondisconnect = function(conn)
-				conn.on("sent", nil)
+			local ondisconnect = function(connection)
+				connection.on("sent", nil)
 				collectgarbage("collect")
 			end
 			-- header parser
@@ -126,7 +126,7 @@ do
 					req:ondata()
 				end
 			end
-			local onreceive = function(conn, chunk)
+			local onreceive = function(connection, chunk)
 				-- merge chunks in buffer
 				if buf then
 					buf = buf .. chunk
@@ -144,13 +144,13 @@ do
 					buf = buf:sub(e + 2)
 					-- method, url?
 					if not method then
-						local i, _
+						local _
 						-- NB: just version 1.1 assumed
-						_, i, method, url =
+						_, _, method, url =
 							line:find("^([A-Z]+) (.-) HTTP/1.1$")
 						if method then
 							-- make request and response objects
-							req = make_req(conn, method, url)
+							req = make_req(connection, method, url)
 							res = make_res(csend, cfini)
 						end
 						-- spawn request handler
@@ -162,12 +162,12 @@ do
 						-- header seems ok?
 						if k then
 							k = k:lower()
-							onheader(conn, k, v)
+							onheader(connection, k, v)
 						end
 					-- headers end
 					else
 						-- NB: we feed the rest of the buffer as starting chunk of body
-						ondata(conn, buf)
+						ondata(connection, buf)
 						-- buffer no longer needed
 						buf = nil
 						-- NB: we explicitly reassign receive handler so that
