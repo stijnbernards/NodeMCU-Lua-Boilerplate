@@ -40,6 +40,9 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
+      - uses: leafo/gh-actions-lua@v5
       - uses: leafo/gh-actions-luarocks@v2
-      - run: luarocks install luacheck 
+      # Install LuaCheck
+      - name: install a module
+        run: luarocks install luacheck
       - run: yarn lint:luacheck
