@@ -69,10 +69,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
       - run: |
           eval "$(ssh-agent -s)"
           echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       - run: ssh ci@$SSH_DOMAIN ls
+        env:
+          SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
