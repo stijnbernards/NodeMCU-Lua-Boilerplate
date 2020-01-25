@@ -76,7 +76,7 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       - run: |
           mkdir -p ~/.ssh
-          ssh-keyscan $SSH_DOMAIN >> ~/.ssh/known_hosts
+          ssh-keyscan -p $SSH_PORT $SSH_DOMAIN >> ~/.ssh/known_hosts
           ssh ci@$SSH_DOMAIN -p $SSH_PORT ls
         env:
           SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
