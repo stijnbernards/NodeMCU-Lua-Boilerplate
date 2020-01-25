@@ -10,6 +10,7 @@ local function wifi_wait_ip(timer)
 		print("MAC address is: " .. wifi.ap.getmac())
 		print("IP is " .. wifi.sta.getip())
 		print("====================================")
+
 		app.start()
 	end
 end

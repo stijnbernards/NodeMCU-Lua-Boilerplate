@@ -63,9 +63,17 @@ jobs:
       - run: tar -xzf dependencies.tar.gz
       - run: yarn lint:prettier
 
+  test-unit:
+    needs: [prepare]
+    name: 'Test: Unit'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make test
+
   run:
     needs: [prepare]
-    name: 'Run the code on ESP8266'
+    name: 'Run the code on ESP8266 for testing'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
