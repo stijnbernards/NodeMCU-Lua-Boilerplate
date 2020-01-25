@@ -17,7 +17,7 @@ std = {
         "loadfile",
         "net",
         "file",
-        "json",
+        "sjson",
         "pcall",
         "collectgarbage",
         "tonumber",
