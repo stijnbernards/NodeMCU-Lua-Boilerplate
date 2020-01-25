@@ -74,7 +74,9 @@ jobs:
           echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-      - run: ssh ci@$SSH_DOMAIN -p $SSH_PORT ls
+      - run: |
+          ssh-keyscan $SSH_DOMAIN >> ~/.ssh/known_hosts
+          ssh ci@$SSH_DOMAIN -p $SSH_PORT ls
         env:
           SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
