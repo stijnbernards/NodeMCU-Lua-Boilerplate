@@ -62,3 +62,16 @@ jobs:
           path: .
       - run: tar -xzf dependencies.tar.gz
       - run: yarn lint:prettier
+
+  run:
+    needs: [prepare]
+    name: 'Run the code on ESP8266'
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
+      - run: |
+          eval "$(ssh-agent -s)"
+          echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
+      - run: ssh ci@$SSH_DOMAIN ls
