@@ -10,7 +10,8 @@
     "gulp-luacheck": "^1.0.4",
     "gulp-prettier": "^2.3.0",
     "nodemcu-tool": "^3.2.0",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "lodash.template": "^4.5.0"
   },
   "scripts": {
     "format": "gulp format",
