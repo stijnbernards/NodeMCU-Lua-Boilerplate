@@ -10,6 +10,21 @@ local function wifi_wait_ip(timer)
 		print("MAC address is: " .. wifi.ap.getmac())
 		print("IP is " .. wifi.sta.getip())
 		print("====================================")
+
+		local mqClient = mqtt.Client("sensor", 120)
+
+		mqClient:connect("192.168.178.234", 1884, 0, function(client)
+			print("connected")
+
+			local function prank()
+				print("publishing " .. adc.read(0))
+				client:publish("sensors/moisture/data", adc.read(0), 0, 0)
+			end
+
+			gpio.write(1, gpio.HIGH)
+			local wifiTimer = tmr.create()
+			wifiTimer:alarm(1000, tmr.ALARM_AUTO, prank)
+		end)
 	end
 end
 

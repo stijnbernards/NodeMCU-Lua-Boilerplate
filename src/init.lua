@@ -67,11 +67,6 @@ local function continueBoot()
 
 	OVL["setup"]().startWifi(config)
 	OVL["OTA"]().start()
-
-	gpio.write(PIN_MOI, gpio.HIGH)
-	print(adc.read(0))
-	gpio.write(PIN_MOI, gpio.LOW)
-
 end
 
 local function waitFlash()
