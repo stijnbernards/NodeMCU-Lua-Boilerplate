@@ -1,0 +1,45 @@
+name: CI
+
+on: [push]
+
+jobs:
+  prepare:
+    name: 'Prepare'
+    runs-on: ubuntu-latest
+    env:
+      YARN_CACHE_FOLDER: .yarn-cache
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/cache@v1
+        with:
+          path: .yarn-cache
+          key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-yarn-cache-
+      - run: yarn --frozen-lockfile
+      - run: tar -czf dependencies.tar.gz node_modules */node_modules
+      - uses: actions/upload-artifact@v1
+        with:
+          name: dependencies
+          path: dependencies.tar.gz
+
+  lint-luacheck:
+    needs: [prepare]
+    name: 'Lint: LuaCheck'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - uses: MilesChou/lua-action@v0.0.1
+      - run: luarocks install luacheck 
+      - run: yarn lint:luacheck
