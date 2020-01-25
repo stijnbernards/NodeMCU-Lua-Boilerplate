@@ -7,7 +7,7 @@ function config.read()
 
 	if file.open("config.json", "r") then
 		local status
-		status, parsedJson = pcall(json.decode, file.read())
+		status, parsedJson = pcall(sjson.decode, file.read())
 
 		if not status then
 			return false
