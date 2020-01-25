@@ -76,8 +76,7 @@ jobs:
           ssh-keyscan -p $SSH_PORT $SSH_DOMAIN >> ~/.ssh/known_hosts
           rsync -cha -e "ssh -p $SSH_PORT" src ci@$SSH_DOMAIN:~/builds/.
           ssh ci@$SSH_DOMAIN -p $SSH_PORT "cd ~/builds/src && \
-          find * -name \*.lua | xargs nodemcu-uploader upload {} && \
-          find * -name \*.lua | xargs nodemcu-uploader file run {}"
+          find * -name \*.lua | xargs nodemcu-uploader upload {}"
         env:
           SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
