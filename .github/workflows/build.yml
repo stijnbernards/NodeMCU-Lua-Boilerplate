@@ -68,6 +68,7 @@ jobs:
     name: 'Run the code on ESP8266'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
