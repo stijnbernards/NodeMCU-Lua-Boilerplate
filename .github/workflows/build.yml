@@ -74,7 +74,7 @@ jobs:
           eval "$(ssh-agent -s)"
           echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
           ssh-keyscan -p $SSH_PORT $SSH_DOMAIN >> ~/.ssh/known_hosts
-          rsync -cha -e "ssh -p $SSH_PORT" src ci@SSH_DOMAIN:~/builds/.
+          rsync -cha -e "ssh -p $SSH_PORT" src ci@$SSH_DOMAIN:~/builds/.
           ssh ci@$SSH_DOMAIN -p $SSH_PORT cd ~/builds/src && nodemcu-uploader upload --compile *.lua
         env:
           SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
