@@ -40,7 +40,7 @@ local function updateConfig(request, response)
 				response:send("OK")
 				response:finish()
 
-				return
+				node.restart()
 			else
 				response:send(nil, 400)
 				response:send_header("Connection", "close")

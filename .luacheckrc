@@ -23,6 +23,7 @@ std = {
         "tonumber",
         "tostring",
         "type",
+        "assert",
         "print",
         "table",
         "require",
