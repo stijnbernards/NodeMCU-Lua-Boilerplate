@@ -1,10 +1,10 @@
 local setup = {}
 
-local function wifi_wait_ip()
+local function wifi_wait_ip(timer)
 	if wifi.sta.getip() == nil then
 		print("IP unavailable, Waiting...")
 	else
-		tmr.stop(1)
+		timer:unregister(1)
 		print("\n====================================")
 		print("ESP8266 mode is: " .. wifi.getmode())
 		print("MAC address is: " .. wifi.ap.getmac())
@@ -25,7 +25,9 @@ function setup.startWifi(config)
 	wifi.setmode(wifi.STATION)
 	wifi.sta.config(sta_config)
 	wifi.sta.connect()
-	tmr.alarm(1, 2500, 1, wifi_wait_ip)
+
+	local wifiTimer = tmr.create()
+	wifiTimer:alarm(2500, tmr.ALARM_AUTO, wifi_wait_ip)
 end
 
 -- Opens an Access Point for BootPanic
