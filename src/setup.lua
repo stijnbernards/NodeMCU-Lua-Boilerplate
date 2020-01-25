@@ -17,8 +17,13 @@ end
 function setup.startWifi(config)
 	print("Configuring Wifi ...")
 
+	local sta_config = {
+		ssid = config.SSID_NAME,
+		pwd = config.SSID_PASSWORD
+	}
+
 	wifi.setmode(wifi.STATION)
-	wifi.sta.config(config.SSID_NAME, config.SSID_PASSWORD)
+	wifi.sta.config(sta_config)
 	wifi.sta.connect()
 	tmr.alarm(1, 2500, 1, wifi_wait_ip)
 end

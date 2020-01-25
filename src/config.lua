@@ -16,6 +16,8 @@ function config.read()
 		file.close()
 	end
 
+	print(parsedJson)
+
 	if type(parsedJson) ~= "table" then
 		parsedJson = {}
 	end
