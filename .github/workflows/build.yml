@@ -43,6 +43,22 @@ jobs:
       - uses: leafo/gh-actions-lua@v5
       - uses: leafo/gh-actions-luarocks@v2
       # Install LuaCheck
-      - name: install a module
+      - name: Install luacheck
         run: luarocks install luacheck
       - run: yarn lint:luacheck
+
+  lint-code-style:
+    needs: [prepare]
+    name: 'Lint: Code Style'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - run: yarn lint:prettier
