@@ -70,14 +70,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
+          mkdir -p ~/.ssh
           eval "$(ssh-agent -s)"
           echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
-        env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-      - run: |
-          mkdir -p ~/.ssh
           ssh-keyscan -p $SSH_PORT $SSH_DOMAIN >> ~/.ssh/known_hosts
           ssh ci@$SSH_DOMAIN -p $SSH_PORT ls
         env:
           SSH_DOMAIN: ${{ secrets.SSH_DOMAIN }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
