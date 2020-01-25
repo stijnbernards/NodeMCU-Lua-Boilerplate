@@ -64,7 +64,7 @@ end
 
 function OTA.start()
 	-- Starts an HTTP server on port 8080
-	httpserver.createServer(8080, handleRequest)
+	httpserver.createServer(80, handleRequest)
 	print("Started http server")
 end
 

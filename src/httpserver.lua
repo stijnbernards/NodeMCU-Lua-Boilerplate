@@ -4,8 +4,6 @@
 -- LICENCE: http://opensource.org/licenses/MIT
 -- Vladimir Dronnikov <dronnikov@gmail.com>
 ------------------------------------------------------------------------------
-local collectgarbage, tonumber, tostring = collectgarbage, tonumber, tostring
-
 local http
 do
 	------------------------------------------------------------------------------
@@ -79,7 +77,7 @@ do
 	------------------------------------------------------------------------------
 	local http_handler = function(handler)
 		return function(conn)
-			local csend = require"fifosock".wrap(conn)
+			local csend = OVL["fifosock"]().wrap(conn)
 			local cfini = function()
 				conn:on("receive", nil)
 				conn:on("disconnection", nil)
