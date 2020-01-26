@@ -7,6 +7,10 @@ local function updateLFSImage(request, response)
 	file.open("flash.img", "w+")
 
 	request.ondata = function(_, chunk)
+		if chunk then
+			file.write(chunk)
+		end
+
 		if not chunk then
 			response:send(nil, 200)
 			response:send_header("Connection", "close")
@@ -24,8 +28,6 @@ local function updateLFSImage(request, response)
 
 			return
 		end
-
-		file.write(chunk)
 	end
 end
 
@@ -33,6 +35,10 @@ local function updateConfig(request, response)
 	local newConfig = ""
 
 	request.ondata = function(_, chunk)
+		if chunk then
+			newConfig = newConfig .. chunk
+		end
+
 		if not chunk then
 			if config.write(newConfig) then
 				response:send(nil, 200)
@@ -46,12 +52,8 @@ local function updateConfig(request, response)
 				response:send_header("Connection", "close")
 				response:send("JSON Decode error: " .. newConfig)
 				response:finish()
-
-				return
 			end
 		end
-
-		newConfig = newConfig .. chunk
 	end
 end
 

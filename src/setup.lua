@@ -18,7 +18,14 @@ local function wifi_wait_ip(timer)
 
 			local function prank()
 				print("publishing " .. adc.read(0))
-				client:publish("sensors/moisture/data", "{\"name\":" .. node.chipid() .. ", \"data\":" ..adc.read(0) .. "}", 0, 0)
+				client:publish(
+					"sensors/moisture/data",
+					'{"identifier":' .. node.chipid() .. ', "data":' .. adc.read(
+						0
+					) .. "}",
+					0,
+					0
+				)
 			end
 
 			gpio.write(1, gpio.HIGH)
