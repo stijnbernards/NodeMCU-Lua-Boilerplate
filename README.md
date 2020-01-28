@@ -15,7 +15,7 @@ So all PR's are welcome.
 
 ## Requirements
 - Lua
-- [Lua Rocks](https://luarocks.org/) for MacOS run `brew install luarocks`
+- [Lua Rocks](https://luarocks.org/)
 - For static code analysis [LuaCheck](https://github.com/mpeterv/luacheck) 
 - Python and PIP
 - Docker
